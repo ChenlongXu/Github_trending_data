@@ -26,35 +26,35 @@ if __name__ == "__main__":
     tree = etree.HTML(page_text)
     #repo_name = tree.xpath('/html/body/div[1]/div[6]/main/div[3]/div/div[2]/article[1]/h2/a')
 
-    repo_names_03_21 = tree.xpath('//h2/a[contains(@href, "/")]/text()')
-    repo_names_03_21_cleaned = [name.strip() for name in repo_names_03_21 if name.strip()]
-    print(repo_names_03_21_cleaned)
+    repo_names_03_22 = tree.xpath('//h2/a[contains(@href, "/")]/text()')
+    repo_names_03_22_cleaned = [name.strip() for name in repo_names_03_22 if name.strip()]
+    print(repo_names_03_22_cleaned)
 
-    authors_names_03_21 = tree.xpath('/html/body//article/h2/a/span/text()')
-    authors_names_03_21_cleaned = [name.strip().replace("/", "") for name in authors_names_03_21 if name.strip()]
-    print(authors_names_03_21_cleaned)
+    authors_names_03_22 = tree.xpath('/html/body//article/h2/a/span/text()')
+    authors_names_03_22_cleaned = [name.strip().replace("/", "") for name in authors_names_03_22 if name.strip()]
+    print(authors_names_03_22_cleaned)
 
-    repo_descriptions_03_21 = tree.xpath('/html/body//article/p/text()')
-    repo_descriptions_03_21_cleaned = [name.strip() for name in repo_descriptions_03_21 if name.strip()]
-    print(repo_descriptions_03_21_cleaned)
+    repo_descriptions_03_22 = tree.xpath('/html/body//article/p/text()') or ["None"]
+    repo_descriptions_03_22_cleaned = [name.strip() for name in repo_descriptions_03_22 if name.strip()]
+    print(repo_descriptions_03_22_cleaned)
 
-    languages_03_21 = tree.xpath('/html/body//article/div[@class="f6 color-fg-muted mt-2"]/span/span[2]/text()')
-    languages_03_21_cleaned = [name.strip() for name in languages_03_21 if name.strip()]
-    print(languages_03_21_cleaned)
+    languages_03_22 = tree.xpath('/html/body//article/div[@class="f6 color-fg-muted mt-2"]/span/span[2]/text()') or ["None"]
+    languages_03_22_cleaned = [name.strip() for name in languages_03_22 if name.strip()]
+    print(languages_03_22_cleaned)
 
-    total_stars_03_21 = tree.xpath('/html/body//article/div[@class="f6 color-fg-muted mt-2"]/a[1]/text()')
-    total_stars_03_21_cleaned = [name.strip() for name in total_stars_03_21 if name.strip()]
-    print(total_stars_03_21_cleaned)
+    total_stars_03_22 = tree.xpath('/html/body//article/div[@class="f6 color-fg-muted mt-2"]/a[1]/text()')
+    total_stars_03_22_cleaned = [name.strip() for name in total_stars_03_22 if name.strip()]
+    print(total_stars_03_22_cleaned)
 
-    total_forks_03_21 = tree.xpath('/html/body//article/div[@class="f6 color-fg-muted mt-2"]/a[2]/text()')
-    total_forks_03_21_cleaned = [name.strip() for name in total_forks_03_21 if name.strip()]
-    print(total_forks_03_21_cleaned)
+    total_forks_03_22 = tree.xpath('/html/body//article/div[@class="f6 color-fg-muted mt-2"]/a[2]/text()')
+    total_forks_03_22_cleaned = [name.strip() for name in total_forks_03_22 if name.strip()]
+    print(total_forks_03_22_cleaned)
 
-    built_by_03_21 = tree.xpath('/html/body//article/div[@class="f6 color-fg-muted mt-2"]/span[2]//a/img/@src')
-    built_by_03_21_cleaned = [name.strip() for name in built_by_03_21 if name.strip()]
-    print(built_by_03_21_cleaned)
+    built_by_03_22 = tree.xpath('/html/body//article/div[@class="f6 color-fg-muted mt-2"]/span[2]//a/img/@src')
+    built_by_03_22_cleaned = [name.strip() for name in built_by_03_22 if name.strip()]
+    print(built_by_03_22_cleaned)
 
-def save_data_to_excel(*args, file_name='Github_Trending_Data_03_21.xlsx'):
+def save_data_to_excel(*args, file_name='Github_Trending_Data_03_22.xlsx'):
     # Check if the file exists
     if os.path.exists(file_name):
         wb = load_workbook(file_name)
@@ -69,7 +69,7 @@ def save_data_to_excel(*args, file_name='Github_Trending_Data_03_21.xlsx'):
 
     # args[0] through args[6] correspond to the collected data lists
     # Zip them together so each "row" in the zipped list contains all items that should go in the same row of the Excel file
-    for data_row in zip(*args, ['2024_03_21' for _ in range(len(args[0]))]):
+    for data_row in zip(*args, ['2024_03_22' for _ in range(len(args[0]))]):
         ws.append(data_row)
 
     # Adjust column widths with respect to the longest piece of data in that column
@@ -88,6 +88,6 @@ def save_data_to_excel(*args, file_name='Github_Trending_Data_03_21.xlsx'):
     wb.save(file_name)
 
 if __name__ == "__main__":
-    save_data_to_excel(repo_names_03_21_cleaned, authors_names_03_21_cleaned, repo_descriptions_03_21_cleaned, languages_03_21_cleaned, total_stars_03_21_cleaned, total_forks_03_21_cleaned, built_by_03_21_cleaned)
+    save_data_to_excel(repo_names_03_22_cleaned, authors_names_03_22_cleaned, repo_descriptions_03_22_cleaned, languages_03_22_cleaned, total_stars_03_22_cleaned, total_forks_03_22_cleaned, built_by_03_22_cleaned)
 
 
