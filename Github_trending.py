@@ -22,7 +22,7 @@ tree = etree.HTML(page_text)
 # List to store each repository's details
 repo_details = []
 
-for i in range(1, 26):  # Loop from 1 to 14
+for i in range(1, 26):  # Loop from 1 to 25
     # Extract information for each article
     details = {
         'repo_names': ' '.join(tree.xpath(f'/html/body//article[{i}]/h2/a/text()')).strip(),
@@ -50,7 +50,7 @@ for i, repo in enumerate(repo_details, start=1):
 # Create a new Excel workbook and select the active worksheet
 wb = Workbook()
 ws = wb.active
-ws.title = "GitHub_Trending_Data_03_24"
+ws.title = "GitHub_Trending_Data_03_25"
 
 # Define and add the header row to the worksheet
 headers = ['Repo Names', 'Authors Names', 'Descriptions', 'Languages', 'Total Stars', 'Total Forks', 'Built By URLs']
@@ -71,7 +71,7 @@ for repo in repo_details:
     ws.append(row)
 
 # Define the file path and name for the Excel file
-excel_file_path = "GitHub_Trending_Data_03_24.xlsx"
+excel_file_path = "GitHub_Trending_Data_03_25.xlsx"
 
 # Adjust column widths based on the longest entry in each column
 for column in ws.columns:
@@ -81,7 +81,7 @@ for column in ws.columns:
         cell_length = len(str(cell.value))
         if cell_length > max_length:
             max_length = cell_length
-    # Adjust the width; customize the multiplier or addend as needed for aesthetics
+    # Adjust the width; customize the multiplier or added as needed for aesthetics
     adjusted_width = max_length + 2
     # Get the column letter and set the dimension
     column_letter = get_column_letter(column[0].column)
